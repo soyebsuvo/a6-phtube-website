@@ -34,7 +34,7 @@ const displayDatas = (datas) => {
         const div = document.createElement("div");
         div.classList = `card card-compact`;
         div.innerHTML = `
-        <figure><img src="${data.thumbnail}" alt="thumbnail" class="w-full h-[160px] rounded-xl"/></figure>
+        <figure class="relative"><img src="${data.thumbnail}" alt="thumbnail" class="w-full h-[160px] rounded-xl"/>${data.others.posted_date ? `<span class="absolute right-2 bottom-2 bg-gray-900 px-3 py-1 rounded-md text-sm text-white">${secondsToHours(data.others.posted_date)}<span/>` : ""}</figure>
         <div class="card-body">
           <div class="flex gap-3">
             <div class="mt-1">
@@ -51,5 +51,14 @@ const displayDatas = (datas) => {
         cardContainer.appendChild(div);
     });
 }
+
+const secondsToHours = (seconds) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const result = `${hours}hrs ${minutes} min ago`;
+    return result;
+}
+
+
 loadData();
 handleTabId("1000");
