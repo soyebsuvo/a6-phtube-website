@@ -17,24 +17,34 @@ const displayTab = (categories) => {
     });
 }
 
+
 const handleTabId = async (id) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/videos/category/${id}`);
     const data = await res.json();
     const datas = data.data;
     displayDatas(datas);
+    sortDatas = datas;
 }
 
+
+
 const displayDatas = (datas) => {
-    // console.log(datas);
+    console.log(datas);
+    // sortDatas = datas;
+    if(datas.length === 0){
+        const emptyField = document.getElementById("emptyField");
+        emptyField.classList.remove("hidden");
+    }else{
+        emptyField.classList.add("hidden");
+    }
     const cardContainer = document.getElementById("card-container");
     cardContainer.innerHTML = "";
-    const image = "images/bluetick.jpg"
     datas.forEach(data => {
-        console.log(data);
+        // console.log(data);
         const div = document.createElement("div");
         div.classList = `card card-compact`;
         div.innerHTML = `
-        <figure class="relative"><img src="${data.thumbnail}" alt="thumbnail" class="w-full h-[160px] rounded-xl"/>${data.others.posted_date ? `<span class="absolute right-2 bottom-2 bg-gray-900 px-3 py-1 rounded-md text-sm text-white">${secondsToHours(data.others.posted_date)}<span/>` : ""}</figure>
+        <figure class="relative"><img src="${data.thumbnail}" alt="thumbnail" class="w-full h-[160px] rounded-xl"/>${data.others.posted_date ? `<span class="absolute right-2 bottom-2 bg-gray-900 px-3 py-1 rounded-md text-sm text-white">${secondsToHoursAndMinutes(data.others.posted_date)}<span/>` : ""}</figure>
         <div class="card-body">
           <div class="flex gap-3">
             <div class="mt-1">
@@ -49,14 +59,29 @@ const displayDatas = (datas) => {
         </div>
         `;
         cardContainer.appendChild(div);
+        // sortDatas.push(data);
     });
+    return datas;
 }
 
-const secondsToHours = (seconds) => {
+
+const secondsToHoursAndMinutes = (seconds) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const result = `${hours}hrs ${minutes} min ago`;
     return result;
+}
+
+const buttonContainer = document.getElementById("button-container");
+const div = document.createElement("div");
+div.classList = `navbar-center flex`;
+div.innerHTML = `
+<button onclick="handleSortButton()" class="btn bg-[#25252533] font-bold" id="sortButton">Sort by view</button>
+`;
+buttonContainer.appendChild(div);
+
+const handleSortButton = (datas) => {
+    console.log(datas);
 }
 
 
