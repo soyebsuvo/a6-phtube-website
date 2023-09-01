@@ -17,20 +17,16 @@ const displayTab = (categories) => {
     });
 }
 
-
+let currentTab = "1000";
 const handleTabId = async (id) => {
+    currentTab = id;
     const res = await fetch(`https://openapi.programming-hero.com/api/videos/category/${id}`);
     const data = await res.json();
     const datas = data.data;
     displayDatas(datas);
-    sortDatas = datas;
 }
 
-
-
 const displayDatas = (datas) => {
-    console.log(datas);
-    // sortDatas = datas;
     if(datas.length === 0){
         const emptyField = document.getElementById("emptyField");
         emptyField.classList.remove("hidden");
@@ -40,7 +36,6 @@ const displayDatas = (datas) => {
     const cardContainer = document.getElementById("card-container");
     cardContainer.innerHTML = "";
     datas.forEach(data => {
-        // console.log(data);
         const div = document.createElement("div");
         div.classList = `card card-compact`;
         div.innerHTML = `
@@ -59,11 +54,8 @@ const displayDatas = (datas) => {
         </div>
         `;
         cardContainer.appendChild(div);
-        // sortDatas.push(data);
     });
-    return datas;
 }
-
 
 const secondsToHoursAndMinutes = (seconds) => {
     const hours = Math.floor(seconds / 3600);
@@ -72,18 +64,13 @@ const secondsToHoursAndMinutes = (seconds) => {
     return result;
 }
 
-const buttonContainer = document.getElementById("button-container");
-const div = document.createElement("div");
-div.classList = `navbar-center flex`;
-div.innerHTML = `
-<button onclick="handleSortButton()" class="btn bg-[#25252533] font-bold" id="sortButton">Sort by view</button>
-`;
-buttonContainer.appendChild(div);
-
-const handleSortButton = (datas) => {
-    console.log(datas);
+const handleSortButton = async () => {
+    const res = await fetch(`https://openapi.programming-hero.com/api/videos/category/${currentTab}`);
+    const data = await res.json();
+    const datas = data.data;
+    const sortedDatas = datas.sort((x,y) => parseFloat(y.others.views) - parseFloat(x.others.views));
+    displayDatas(sortedDatas);
 }
-
 
 loadData();
 handleTabId("1000");
