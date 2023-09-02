@@ -7,7 +7,6 @@ const loadData = async () => {
 
 const displayTab = (categories) => {
     const tabContainer = document.getElementById("tab-container");
-    console.log(categories[0])
     categories.forEach(category => {
         const div = document.createElement("div");
         div.innerHTML = `
@@ -17,20 +16,20 @@ const displayTab = (categories) => {
     });
 }
 
-let currentTab = "1000";
+let sortDatas;
+
 const handleTabId = async (id) => {
-    currentTab = id;
     const res = await fetch(`https://openapi.programming-hero.com/api/videos/category/${id}`);
     const data = await res.json();
     const datas = data.data;
     displayDatas(datas);
+    sortDatas = datas;
 }
-
 const displayDatas = (datas) => {
-    if(datas.length === 0){
+    if (datas.length === 0) {
         const emptyField = document.getElementById("emptyField");
         emptyField.classList.remove("hidden");
-    }else{
+    } else {
         emptyField.classList.add("hidden");
     }
     const cardContainer = document.getElementById("card-container");
@@ -64,13 +63,11 @@ const secondsToHoursAndMinutes = (seconds) => {
     return result;
 }
 
-const handleSortButton = async () => {
-    const res = await fetch(`https://openapi.programming-hero.com/api/videos/category/${currentTab}`);
-    const data = await res.json();
-    const datas = data.data;
-    const sortedDatas = datas.sort((x,y) => parseFloat(y.others.views) - parseFloat(x.others.views));
+const handleSortButton = () => {
+    const sortedDatas = sortDatas.sort((x, y) => parseFloat(y.others.views) - parseFloat(x.others.views));
     displayDatas(sortedDatas);
 }
 
 loadData();
 handleTabId("1000");
+
