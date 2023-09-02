@@ -18,7 +18,7 @@
   </style>
 </head>
 
-<body class="px-8 max-w-7xl mx-auto inter">
+<body class="px-3 md:px-8 max-w-7xl mx-auto inter">
   <header class="py-4">
     <nav>
       <div class="navbar bg-base-100">
@@ -43,18 +43,18 @@
                 </clipPath>
               </defs>
             </svg>
-            <h2 class="font-bold text-3xl"><span class="text-[#FF1F3D]">PH</span>
+            <h2 class="font-bold text-2xl md:text-3xl"><span class="text-[#FF1F3D]">PH</span>
               <span>Tube</span>
             </h2>
           </a>
         </div>
         <div id="button-container">
-          <div class="navbar-center flex">
-            <button onclick="handleSortButton()" class="btn bg-[#25252533] font-bold" id="sortButton">Sort by view</button>
+          <div class="navbar-center flex ml-3 md:ml-0">
+            <button onclick="handleSortButton()" class="btn-sm btn bg-[#25252533] font-bold md:px-6 md:pb-7 md:pt-4" id="sortButton">Sort by view</button>
           </div>
         </div>
         <div class="navbar-end">
-          <a href="blog.html" target="_blank" class="btn bg-[#FF1F3D] text-white">Blog</a>
+          <a href="blog.html" target="_blank" class="btn btn-sm md:px-8 md:pb-7 md:pt-4 bg-[#FF1F3D] text-white">Blog</a>
         </div>
       </div>
     </nav>
@@ -74,7 +74,7 @@
             <img src="images/404.jpg" alt="404 not found" class="w-32" />
           </div>
           <div>
-            <h1 class="text-4xl font-bold text-center">Oops!! Sorry, There is no <br> content here</h1>
+            <h1 class="text-4xl font-bold text-center">Oops!! Sorry, There is no <br class="hidden md:block"> content here</h1>
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@ const displayTab = (categories) => {
     categories.forEach(category => {
         const div = document.createElement("div");
         div.innerHTML = `
-        <a onclick="handleTabId(${category.category_id})" class="px-4 py-2 btn btn-sm font-semibold mx-2 cursor-pointer hover: rounded-lg bg-[#25252533]">${category?.category}</a>
+        <a onclick="handleTabId(${category.category_id})" class="px-4 py-2  btn btn-sm font-semibold mx-1 my-2 cursor-pointer hover: rounded-lg bg-[#25252533]">${category?.category}</a>
         `;
         tabContainer.appendChild(div);
     });
@@ -36,7 +36,7 @@ const displayDatas = (datas) => {
     cardContainer.innerHTML = "";
     datas.forEach(data => {
         const div = document.createElement("div");
-        div.classList = `card card-compact`;
+        div.classList = `card card-compact w-80 mx-auto md:w-full`;
         div.innerHTML = `
         <figure class="relative"><img src="${data.thumbnail}" alt="thumbnail" class="w-full h-[160px] rounded-xl"/>${data.others.posted_date ? `<span class="absolute right-2 bottom-2 bg-gray-900 px-3 py-1 rounded-md text-sm text-white">${secondsToHoursAndMinutes(data.others.posted_date)}<span/>` : ""}</figure>
         <div class="card-body">
